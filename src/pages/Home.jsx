@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Box, Heading, VStack, Link, Text, Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
@@ -5,17 +6,28 @@ import { Link as RouterLink } from "react-router-dom";
 const Home = ({ setLoggedIn }) => {
   const navigate = useNavigate();
 
+  const [events, setEvents] = useState([]);
+
   const handleLogout = () => {
     setLoggedIn(false);
     localStorage.setItem("loggedIn", "false");
     navigate("/login");
   };
 
-  // Placeholder data for events
-  const events = [
-    { id: 1, name: "Demo Night 2023", date: "2023-12-01", coverImage: "path/to/image1.jpg" },
-    { id: 2, name: "Tech Showcase 2023", date: "2023-11-15", coverImage: "path/to/image2.jpg" },
-  ];
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const response = await fetch('https://jjfebbwwtcxyhvnkuyrh.supabase.co/rest/v1/events?select=*', {
+        headers: {
+          apikey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpqZmViYnd3dGN4eWh2bmt1eXJoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTY0NTgyMzMsImV4cCI6MjAzMjAzNDIzM30.46syqx3sHX-PQMribS6Vt0RLLUY7w295JHO61yZ-fec',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpqZmViYnd3dGN4eWh2bmt1eXJoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTY0NTgyMzMsImV4cCI6MjAzMjAzNDIzM30.46syqx3sHX-PQMribS6Vt0RLLUY7w295JHO61yZ-fec'
+        }
+      });
+      const data = await response.json();
+      setEvents(data);
+    };
+
+    fetchEvents();
+  }, []);
 
   return (
     <Box p={4}>
