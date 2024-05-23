@@ -12,6 +12,7 @@ const Login = ({ setLoggedIn }) => {
     // Allow any email and password combination to log in
     if (email && password) {
       setLoggedIn(true);
+      localStorage.setItem("loggedIn", "true"); // Save login state to localStorage
       navigate("/home");
     } else {
       setError("Email and password cannot be empty");
