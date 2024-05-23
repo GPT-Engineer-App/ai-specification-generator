@@ -14,7 +14,7 @@ const Demo = () => {
 
   return (
     <Box p={4}>
-      <Heading mb={4}>Demo Details</Heading>
+      <Heading mb={4}>Demo Information</Heading>
       <Text mb={4}>Demo ID: {demoId}</Text>
       <VStack spacing={4}>
         <Textarea
