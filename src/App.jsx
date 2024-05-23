@@ -23,7 +23,7 @@ function App() {
     <Router>
       <Routes>
         <Route exact path="/" element={<Index />} />
-      <Route path="/home" element={loggedIn ? <Home /> : <Navigate to="/login" />} />
+      <Route path="/home" element={loggedIn ? <Home setLoggedIn={setLoggedIn} /> : <Navigate to="/login" />} />
       <Route path="/event/:eventId" element={loggedIn ? <Event /> : <Navigate to="/login" />} />
       <Route path="/demo/:demoId" element={loggedIn ? <Demo /> : <Navigate to="/login" />} />
       <Route path="/login" element={<Login setLoggedIn={setLoggedIn} />} />
