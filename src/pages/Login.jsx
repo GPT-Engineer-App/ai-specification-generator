@@ -9,12 +9,12 @@ const Login = ({ setLoggedIn }) => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    // Mock authentication logic
-    if (email === "user@example.com" && password === "password") {
+    // Allow any email and password combination to log in
+    if (email && password) {
       setLoggedIn(true);
       navigate("/home");
     } else {
-      setError("Invalid email or password");
+      setError("Email and password cannot be empty");
     }
   };
 
