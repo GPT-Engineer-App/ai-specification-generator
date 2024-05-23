@@ -1,7 +1,11 @@
-import { Container, Text, VStack, Box, Heading, Link } from "@chakra-ui/react";
-import { Link as RouterLink } from "react-router-dom";
+import { Container, Text, VStack, Box, Heading, Link, Button } from "@chakra-ui/react";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Index = () => {
+  const navigate = useNavigate();
+  const [loggedIn, setLoggedIn] = useState(false);
+
   // Placeholder data for events
   const events = [
     { id: 1, name: "Demo Night 2023", date: "2023-12-01", coverImage: "path/to/image1.jpg" },
@@ -13,6 +17,11 @@ const Index = () => {
       <VStack spacing={4} align="stretch">
         <Text fontSize="2xl" textAlign="center">Welcome to Demo Night</Text>
         <Text textAlign="center">Click below to view upcoming events.</Text>
+        {loggedIn && (
+          <Button colorScheme="blue" mb={4} onClick={() => navigate("/create-event")}>
+            Create Event
+          </Button>
+        )}
         {events.map((event) => (
           <Link as={RouterLink} to={`/event/${event.id}`} key={event.id}>
             <Box
