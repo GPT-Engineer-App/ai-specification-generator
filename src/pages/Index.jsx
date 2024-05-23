@@ -1,8 +1,11 @@
-import { Container, Text, VStack, Box, Heading, Link } from "@chakra-ui/react";
-import { Link as RouterLink } from "react-router-dom";
+import { Container, Text, VStack, Box, Heading, Link, Button } from "@chakra-ui/react";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { supabase } from "../supabaseClient";
 
 const Index = () => {
-  // Placeholder data for events
+  const navigate = useNavigate();
+  const user = supabase.auth.user();
+
   const events = [
     { id: 1, name: "Demo Night 2023", date: "2023-12-01", coverImage: "path/to/image1.jpg" },
     { id: 2, name: "Tech Showcase 2023", date: "2023-11-15", coverImage: "path/to/image2.jpg" },
@@ -13,6 +16,15 @@ const Index = () => {
       <VStack spacing={4} align="stretch">
         <Text fontSize="2xl" textAlign="center">Welcome to Demo Night</Text>
         <Text textAlign="center">Click below to view upcoming events.</Text>
+        {user ? (
+          <Button colorScheme="blue" onClick={() => navigate("/create-event")}>
+            Create Event
+          </Button>
+        ) : (
+          <Button colorScheme="blue" onClick={() => navigate("/login")}>
+            Login
+          </Button>
+        )}
         {events.map((event) => (
           <Link as={RouterLink} to={`/event/${event.id}`} key={event.id}>
             <Box
